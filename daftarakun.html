@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard Operator SDN Toyaning I Rejoso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --biru: #0a3b75;
+        --toska: #1fbfc3;
+        --kuning: #f6c445;
+        --bg: #eaf6f8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: radial-gradient(circle at top, var(--toska), var(--bg));
+      }
+
+      /* HEADER */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        padding: 25px 15px;
+        flex-wrap: wrap;
+        background: linear-gradient(135deg, var(--biru), var(--toska));
+        color: #fff;
+      }
+      .logo-kab {
+        height: 80px;
+      }
+      .logo-sekolah {
+        height: 100px;
+      }
+      .title {
+        text-align: center;
+      }
+      .title h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .title p {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+      .operator {
+        color: var(--kuning);
+        font-weight: 600;
+      }
+
+      /* GRID MENU */
+      .container {
+        max-width: 1100px;
+        margin: 35px auto;
+        padding: 0 15px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 20px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 22px 15px;
+        text-align: center;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        transition: 0.4s;
+      }
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+      }
+      .icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+      .card a {
+        text-decoration: none;
+        color: var(--biru);
+        font-weight: 700;
+      }
+
+      /* AKUN CARD */
+      .akun-card {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+      }
+      .akun-header {
+        background: linear-gradient(135deg, var(--biru), var(--toska));
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+      }
+      .akun-header .icon {
+        font-size: 40px;
+      }
+      .akun-body {
+        padding: 20px;
+      }
+
+      /* TABLE */
+      #akunTable {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #akunTable th {
+        background: var(--biru);
+        color: #fff;
+        padding: 12px;
+      }
+      #akunTable td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+      }
+      #akunTable tr:hover {
+        background: #f2f9fb;
+      }
+
+      /* FOOTER */
+      .footer {
+        text-align: center;
+        padding: 15px;
+        font-size: 13px;
+        color: #033;
+      }
+
+      /* ===============================
+   LOCK SCREEN MODERN
+================================ */
+      .lock-screen {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(10, 59, 117, 0.95),
+          rgba(31, 191, 195, 0.95)
+        );
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      .lock-box {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 30px 25px;
+        width: 90%;
+        max-width: 340px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        animation: scaleIn 0.5s ease forwards;
+      }
+
+      .lock-logo {
+        width: 90px;
+        margin-bottom: 10px;
+      }
+
+      .lock-box h3 {
+        margin: 5px 0;
+        color: #0a3b75;
+      }
+
+      .lock-sub {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .lock-box input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 12px;
+      }
+
+      .lock-box button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: #0a3b75;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .lock-box button:hover {
+        background: #1fbfc3;
+      }
+
+      .lock-msg {
+        margin-top: 8px;
+        font-size: 13px;
+        color: red;
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <img src="Logo Kabupaten Pasuruan.png" class="logo-kab" />
+      <div class="title">
+        <h1>Dashboard Operator Sekolah</h1>
+        <p>SDN Toyaning I Rejoso • Kabupaten Pasuruan</p>
+        <span class="operator">Operator : MUKHAMAD IRFAN</span>
+      </div>
+      <img src="Logosekolah.png" class="logo-sekolah" />
+    </div>
+
+    <div style="text-align: center; margin: 20px">
+      <a
+        href="index.html"
+        style="
+          display: inline-block;
+          padding: 10px 18px;
+          background: #0a3b75;
+          color: #fff;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: 0.3s;
+
+          .password {
+            letter-spacing: 2px;
+            margin-right: 8px;
+          }
+
+          .eye {
+            cursor: pointer;
+            font-size: 18px;
+            user-select: none;
+          }
+          .eye:hover {
+            transform: scale(1.2);
+          }
+        "
+        onmouseover="this.style.background = '#1fbfc3'"
+        onmouseout="this.style.background = '#0a3b75'"
+      >
+        ⬅ Kembali ke Dashboard
+      </a>
+    </div>
+
+    <!-- 
+    MENU -->
+    <!-- <div class="container">
+      <div class="card">
+        <div class="icon">📊</div>
+        <a href="#">DAPODIK</a>
+      </div>
+      <div class="card">
+        <div class="icon">🏫</div>
+        <a href="#">Manajemen Sekolah</a>
+      </div>
+      <div class="card">
+        <div class="icon">👩‍🏫</div>
+        <a href="#">PTK / GTK</a>
+      </div>
+      <div class="card">
+        <div class="icon">💳</div>
+        <a href="#">Info GTK</a>
+      </div>
+    </div> -->
+
+    <!-- DATA AKUN -->
+    <div class="akun-card">
+      <div class="akun-header">
+        <span class="icon">👥</span>
+        <h2>Data Akun Pengguna</h2>
+        <p>Sinkron Google Spreadsheet</p>
+      </div>
+
+      <div class="akun-body">
+        <table id="akunTable">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3">Memuat data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LOCK SCREEN -->
+    <div id="lockScreen" class="lock-screen">
+      <div class="lock-box">
+        <img src="Logosekolah.png" alt="Logo Sekolah" class="lock-logo" />
+        <h3>🔐 Akses Operator</h3>
+        <p class="lock-sub">Masukkan kode untuk melanjutkan</p>
+
+        <input type="password" id="kodeInput" placeholder="Kode Akses" />
+
+        <button onclick="cekKode()">Masuk</button>
+        <p id="lockMsg" class="lock-msg"></p>
+      </div>
+    </div>
+
+    <div class="footer">© 2026 | SDN Toyaning I Rejoso</div>
+
+    <!-- SCRIPT GOOGLE SHEETS -->
+    <script>
+      if (sessionStorage.getItem("aksesOK") !== "1") {
+        window.location.href = "login.html";
+      }
+      /* GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT */
+      const SHEET_API =
+        "https://script.google.com/macros/s/AKfycbxuLhYGKiA-756Sfm9SVivhLZrnPjjwnOeluEBSGOuF-DTastS9fhAnCFfeMR_PDvBD/exec";
+
+      fetch(SHEET_API)
+        .then((res) => res.json())
+        .then((data) => {
+          const tbody = document.querySelector("#akunTable tbody");
+          tbody.innerHTML = "";
+
+          if (!data.length) {
+            tbody.innerHTML = "<tr><td colspan='3'>Data kosong</td></tr>";
+            return;
+          }
+
+          data.forEach((row) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+  <td>${row.username}</td>
+  <td>
+    <span class="password" data-pass="${row.password}">••••••</span>
+    <span class="eye" onclick="togglePassword(this)">👁️</span>
+  </td>
+  <td>${row.role}</td>
+`;
+
+            tbody.appendChild(tr);
+          });
+        })
+        .catch(() => {
+          document.querySelector("#akunTable tbody").innerHTML =
+            "<tr><td colspan='3'>❌ Gagal mengambil data</td></tr>";
+        });
+
+      function togglePassword(el) {
+        const passSpan = el.previousElementSibling;
+
+        if (passSpan.textContent === "••••••") {
+          passSpan.textContent = passSpan.dataset.pass;
+          el.textContent = "🙈";
+        } else {
+          passSpan.textContent = "••••••";
+          el.textContent = "👁️";
+        }
+      }
+
+      // LOCK SCREEN
+      const CSV_URL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRk1xqC3HBySnV1gltkCvue2u17fmfAXJESrnyzeXMXu7BkRTsX8fDQPPUu8lXdwuVg7Pog0ck4yYhJ/pub?gid=0&single=true&output=csv";
+
+      let kodeValid = "";
+      let idleTimer;
+      let idleInitialized = false;
+      const IDLE_LIMIT = 5 * 60 * 1000; // 5 menit
+
+      // PAKSA KUNCI SETIAP REFRESH
+      sessionStorage.removeItem("aksesOK");
+
+      /* ===============================
+     AMBIL KODE DARI CSV (AMAN)
+  ================================ */
+      fetch(CSV_URL)
+        .then((res) => res.text())
+        .then((csv) => {
+          const rows = csv
+            .split(/\r?\n/)
+            .map((r) => r.trim())
+            .filter((r) => r);
+
+          // baris ke-2 kolom pertama
+          kodeValid = rows[1]?.split(",")[0]?.trim();
+
+          if (!kodeValid) throw new Error("Kode kosong");
+          cekSession();
+        })
+        .catch((err) => {
+          alert("❌ Gagal mengambil kode akses");
+          console.error(err);
+        });
+
+      /* ===============================
+     CEK SESSION
+  ================================ */
+      function cekSession() {
+        if (sessionStorage.getItem("aksesOK") !== "1") {
+          tampilkanLock();
+        } else {
+          mulaiIdleTimer();
+        }
+      }
+
+      function tampilkanLock() {
+        document.body.style.overflow = "hidden";
+        document.getElementById("lockScreen").style.display = "flex";
+        document.getElementById("kodeInput").value = "";
+        document.getElementById("lockMsg").textContent = "";
+      }
+
+      function bukaLock() {
+        document.body.style.overflow = "auto";
+        document.getElementById("lockScreen").style.display = "none";
+      }
+
+      function cekKode() {
+        const input = document.getElementById("kodeInput").value.trim();
+        if (input === kodeValid) {
+          sessionStorage.setItem("aksesOK", "1");
+          bukaLock();
+          mulaiIdleTimer();
+        } else {
+          document.getElementById("lockMsg").textContent = "❌ Kode salah";
+        }
+      }
+
+      /* ENTER SUPPORT */
+      document.getElementById("kodeInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") cekKode();
+      });
+
+      /* ===============================
+     IDLE TIMER (ANTI NUMPuk)
+  ================================ */
+      function mulaiIdleTimer() {
+        if (!idleInitialized) {
+          ["mousemove", "keydown", "click", "touchstart"].forEach((evt) =>
+            document.addEventListener(evt, resetIdle),
+          );
+          idleInitialized = true;
+        }
+        resetIdle();
+      }
+
+      function resetIdle() {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          sessionStorage.removeItem("aksesOK");
+          tampilkanLock();
+        }, IDLE_LIMIT);
+      }
+    </script>
+  </body>
+</html>

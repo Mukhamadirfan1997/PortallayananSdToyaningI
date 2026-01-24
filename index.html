@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portal Layanan SDN Toyaning I Rejoso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --biru: #0a3b75;
+        --toska: #1fbfc3;
+        --kuning: #f6c445;
+        --bg: #eaf6f8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: radial-gradient(
+          circle at top,
+          var(--toska),
+          var(--bg)
+        ); /* KUNCI TAMPILAN SEBELUM AKSES */
+      }
+
+      /* HEADER */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        padding: 25px 15px;
+        flex-wrap: wrap;
+        background: linear-gradient(135deg, var(--biru), var(--toska));
+        color: #fff;
+      }
+
+      .logo-kab {
+        height: 80px;
+      }
+
+      .logo-sekolah {
+        height: 100px;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .title p {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+
+      .operator {
+        color: var(--kuning);
+        font-weight: 600;
+      }
+
+      /* GRID MENU */
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 15px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 24px 16px;
+        text-align: center;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        transition: 0.4s;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+      }
+
+      .icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      .card a {
+        text-decoration: none;
+        color: var(--biru);
+        font-weight: 700;
+        font-size: 14px;
+        display: block;
+      }
+
+      /* FOOTER */
+      .footer {
+        text-align: center;
+        padding: 15px;
+        font-size: 13px;
+        color: #033;
+      }
+
+      /* LOCK SCREEN */
+      #lockScreen {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(10px);
+        background: rgba(10, 59, 117, 0.9);
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(1.05);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .lock-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 340px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .lock-box img {
+        width: 140px;
+        background: #fff;
+        padding: 14px;
+        border-radius: 16px;
+        margin-bottom: 18px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .lock-box h3 {
+        margin: 10px 0;
+        color: var(--biru);
+      }
+
+      .lock-box input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .lock-box button {
+        width: 100%;
+        padding: 12px;
+        background: var(--biru);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .lock-box p {
+        font-size: 13px;
+        color: red;
+        margin-top: 6px;
+      }
+
+      /* ===== ANIMASI UMUM ===== */
+      @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-6px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes successPop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .shake {
+        animation: shake 0.4s;
+      }
+
+      .input-error {
+        border-color: #e74c3c !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25);
+      }
+
+      .input-success {
+        border-color: #2ecc71 !important;
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+      }
+
+      .success-icon {
+        font-size: 42px;
+        color: #2ecc71;
+        animation: successPop 0.4s ease;
+        margin-bottom: 8px;
+      }
+
+      #lockScreen button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <img src="Logo Kabupaten Pasuruan.png" class="logo-kab" />
+      <div class="title">
+        <h1>Portal Layanan Sekolah</h1>
+        <p>SDN Toyaning I Rejoso • Kabupaten Pasuruan</p>
+        <span class="operator">Operator : MUKHAMAD IRFAN</span>
+      </div>
+      <img src="Logosekolah.png" class="logo-sekolah" />
+    </div>
+
+    <!-- PORTAL MENU -->
+    <div class="container">
+      <div class="card">
+        <div class="icon">🏫</div>
+        <a href="https://sdntoyaning01rejoso.my.id/" target="_blank"
+          >Website Sekolah</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">🗂️</div>
+        <a href="https://surat.sdntoyaning01rejoso.my.id/" target="_blank"
+          >Website Arsip Surat</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">🪪</div>
+        <a href="https://kartusulingjarsdntoyaning1.vercel.app/" target="_blank"
+          >Kartu Sulingjar</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <a
+          href="https://data-akun-infogtk-sdtoyaning.vercel.app/"
+          target="_blank"
+          >Data Akun Info GTK</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">📁</div>
+        <a href="https://drive.google.com/drive/folders/..." target="_blank"
+          >Laporan SKP</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">👩‍🏫</div>
+        <a href="https://portaltendiksdntoyaning1.vercel.app/" target="_blank"
+          >Portal Tendik</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">📋</div>
+        <a href="https://drive.google.com/drive/folders/..." target="_blank"
+          >Data Siswa</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">⚙️</div>
+        <a href="https://progres-data-siswa-baru.vercel.app/" target="_blank"
+          >Progres Siswa Baru</a
+        >
+      </div>
+
+      <div class="card">
+        <div class="icon">💬</div>
+        <a href="https://wa.me/xxxxxxxxxxx" target="_blank">WhatsApp Admin</a>
+      </div>
+
+      <div class="card">
+        <div class="icon">👤</div>
+        <a href="https://www.instagram.com/mukhamadirfan22" target="_blank"
+          >Instagram Admin</a
+        >
+      </div>
+    </div>
+
+    <div class="footer">© 2026 | SDN Toyaning I Rejoso</div>
+
+    <!-- LOCK SCREEN -->
+    <div id="lockScreen" class="lock-screen">
+      <div class="lock-box">
+        <img src="Logosekolah.png" class="lock-logo" />
+        <h3>🔐 Akses Login</h3>
+        <p class="lock-sub">
+          Waktu akses Anda telah habis, silakan masukkan kode untuk melanjutkan
+        </p>
+
+        <form
+          onsubmit="
+            cekKode();
+            return false;
+          "
+        >
+          <input
+            type="password"
+            id="kodeInput"
+            placeholder="Kode Akses"
+            autocomplete="current-password"
+            required
+          />
+          <button type="submit">Masuk</button>
+        </form>
+
+        <p id="lockMsg" class="lock-msg"></p>
+      </div>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

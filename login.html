@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Operator | SDN Toyaning I Rejoso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --biru: #0a3b75;
+        --toska: #1fbfc3;
+        --kuning: #f6c445;
+        --bg: #eaf6f8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, var(--biru), var(--toska));
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-wrapper {
+        width: 95%;
+        max-width: 1000px;
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        animation: fadeUp 0.7s ease;
+      }
+
+      /* KIRI */
+      .login-left {
+        background: linear-gradient(
+          135deg,
+          rgba(10, 59, 117, 0.95),
+          rgba(31, 191, 195, 0.95)
+        );
+        color: #fff;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .logo-box {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 14px;
+        border-radius: 14px;
+        width: fit-content;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .logo-box img {
+        width: 120px;
+        height: auto;
+        display: block;
+        image-rendering: crisp-edges;
+      }
+
+      .login-left h1 {
+        margin: 0;
+        font-size: 26px;
+      }
+
+      .login-left p {
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      /* KANAN */
+      .login-right {
+        padding: 45px 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .login-right h2 {
+        margin: 0;
+        color: var(--biru);
+        font-size: 22px;
+      }
+
+      .login-right p {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+
+      .login-right input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .login-right button {
+        width: 100%;
+        padding: 14px;
+        border-radius: 10px;
+        border: none;
+        background: var(--biru);
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .login-right button:hover {
+        background: var(--toska);
+      }
+
+      .login-msg {
+        margin-top: 10px;
+        font-size: 13px;
+        color: red;
+        text-align: center;
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 12px;
+        text-align: center;
+        color: #777;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .login-wrapper {
+          grid-template-columns: 1fr;
+        }
+        .login-left {
+          display: none;
+        }
+      }
+
+      /* ===== ANIMASI UMUM ===== */
+      @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-6px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes successPop {
+        0% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .shake {
+        animation: shake 0.4s;
+      }
+
+      .input-error {
+        border-color: #e74c3c !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.25);
+      }
+
+      .input-success {
+        border-color: #2ecc71 !important;
+        box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+      }
+
+      .success-icon {
+        font-size: 42px;
+        color: #2ecc71;
+        animation: successPop 0.4s ease;
+        margin-bottom: 8px;
+      }
+
+      button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-wrapper">
+      <!-- KIRI -->
+      <div class="login-left">
+        <div class="logo-box">
+          <img src="Logosekolah.png" alt="Logo SDN Toyaning I Rejoso" />
+        </div>
+        <h1>Dashboard Operator Sekolah</h1>
+        <p>Sistem layanan internal SDN Toyaning I Rejoso Kabupaten Pasuruan</p>
+      </div>
+
+      <!-- KANAN -->
+      <div class="login-right">
+        <h2>Login Operator</h2>
+        <p>Masukkan kode akses untuk melanjutkan</p>
+
+        <input
+          type="password"
+          id="kodeInput"
+          placeholder="Kode Akses"
+          autofocus
+        />
+
+        <button id="loginBtn" onclick="cekKode()">Masuk</button>
+
+        <div id="loginMsg" class="login-msg"></div>
+
+        <div class="footer">© 2026 SDN Toyaning I Rejoso</div>
+      </div>
+    </div>
+
+    <script src="login.js" defer></script>
+  </body>
+</html>

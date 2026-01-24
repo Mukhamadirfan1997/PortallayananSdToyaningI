@@ -1,0 +1,20 @@
+{
+  "name": "Dashboard Operator SDN Toyaning I Rejoso",
+  "short_name": "Dashboard Operator",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#eaf6f8",
+  "theme_color": "#0a3b75",
+  "icons": [
+    {
+      "src": "Logosekolah.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logosekolah.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
